@@ -47,7 +47,7 @@ find_package(catkin REQUIRED COMPONENTS
         pcl_conversions
         velodyne_pointcloud
         # ndt_tku
-        ndt_cpu
+        # ndt_cpu
         # autoware_health_checker
         jsk_rviz_plugins
         ${PCL_OPENMP_PACKAGES}
@@ -66,7 +66,7 @@ catkin_package(
         # autoware_config_msgs
         # autoware_health_checker
         # ndt_tku
-        ndt_cpu
+        # ndt_cpu
         jsk_rviz_plugins
         ${PCL_OPENMP_PACKAGES}
         DEPENDS PCL
@@ -76,13 +76,79 @@ catkin_package(
 ## Build ##
 ###########
 
-include_directories(include ${catkin_INCLUDE_DIRS}
- ${EIGEN3_INCLUDE_DIRS})
+include_directories(
+    "include"
+    ${catkin_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIRS}
+    ${PCL_INCLUDE_DIRS}
+    )
 
 SET(CMAKE_CXX_FLAGS "-O2 -g -Wall ${CMAKE_CXX_FLAGS}")
 
+
+
+
+# catkin_package(
+#         INCLUDE_DIRS include
+#         LIBRARIES ndt_cpu                   #The exported libraries from the project
+#         DEPENDS PCL
+# )
+set(srcs
+        src/NormalDistributionsTransform.cpp
+        src/Registration.cpp
+        src/VoxelGrid.cpp
+        src/Octree.cpp
+        )
+
+set(incs
+        include/ndt_cpu/debug.h
+        include/ndt_cpu/NormalDistributionsTransform.h
+        include/ndt_cpu/Registration.h
+        include/ndt_cpu/SymmetricEigenSolver.h
+        include/ndt_cpu/VoxelGrid.h
+        include/ndt_cpu/Octree.h
+        )
+
+        add_definitions(-DEIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT)
+
+        add_library(ndt_cpu SHARED ${incs} ${srcs})
+        
+        # target_link_libraries(ndt_cpu
+        #         ${PCL_LIBRARIES}
+        #         ${catkin_LIBRARIES}
+        #         )
+        
+        # install(DIRECTORY include/${PROJECT_NAME}/
+        #         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+        #         FILES_MATCHING PATTERN "*.h"
+        #         )
+        
+        
+        # install(TARGETS ndt_cpu
+        #         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        #         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        #         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+        #         )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 add_executable(ndt_matching nodes/ndt_matching/ndt_matching.cpp)
-target_link_libraries(ndt_matching ${catkin_LIBRARIES})
+target_link_libraries(ndt_matching ${catkin_LIBRARIES} ndt_cpu)
 add_dependencies(ndt_matching ${catkin_EXPORTED_TARGETS})
 
 # add_executable(ndt_mapping nodes/ndt_mapping/ndt_mapping.cpp)
