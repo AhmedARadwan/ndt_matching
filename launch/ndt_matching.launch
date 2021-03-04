@@ -1,6 +1,17 @@
 <!-- -->
 <launch>
 
+  <param name="localizer" value="velodyne" />
+  <param name="tf_localizer" value="velodyne" />
+  <param name="tf_x" value="1.2" />
+  <param name="tf_y" value="0.0" />
+  <param name="tf_z" value="2.0" />
+  <param name="tf_yaw" value="0.0" />
+  <param name="tf_pitch" value="0.0" />
+  <param name="tf_roll" value="0.0" />
+
+
+
   <arg name="method_type" default="0" /> <!-- pcl_generic=0, pcl_anh=1, pcl_anh_gpu=2, pcl_openmp=3 -->
   <arg name="use_gnss" default="0" />
   <arg name="use_odom" default="false" />
@@ -15,7 +26,7 @@
   <arg name="output_log_data" default="false" />
   <arg name="gnss_reinit_fitness" default="500.0" />
 
-  <node pkg="lidar_localizer" type="ndt_matching" name="ndt_matching" output="log">
+  <node pkg="ndt_matching" type="ndt_matching" name="ndt_matching" output="screen">
     <param name="method_type" value="$(arg method_type)" />
     <param name="use_gnss" value="$(arg use_gnss)" />
     <param name="use_odom" value="$(arg use_odom)" />

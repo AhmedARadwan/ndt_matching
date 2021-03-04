@@ -1582,9 +1582,9 @@ int main(int argc, char** argv)
   // nh.setParam("tf_x", 1.2);
   // nh.setParam("tf_y", 0.0);
   // nh.setParam("tf_z", 2.0);
-  nh.setParam("tf_yaw", 0.0);
-  nh.setParam("tf_pitch", 0.0);
-  nh.setParam("tf_roll", 0.0);
+  // nh.setParam("tf_yaw", 0.0);
+  // nh.setParam("tf_pitch", 0.0);
+  // nh.setParam("tf_roll", 0.0);
   // nh.getParam("tf_localizer", "velodyne");
   // nh.getParam("localizer", "velodyne");
 

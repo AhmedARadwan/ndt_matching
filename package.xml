@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>lidar_localizer</name>
+  <name>ndt_matching</name>
   <version>1.12.0</version>
   <description>The lidar_localizer package</description>
   <maintainer email="yuki@ertl.jp">kitsukawa</maintainer>
